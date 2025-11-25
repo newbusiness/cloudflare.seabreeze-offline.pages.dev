@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seabreeze - Temporarily Offline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Arial, sans-serif !important;
+            background: linear-gradient(135deg, #E1FFFF 0%, #A2DBE8 50%, #0096D6 100%);
+            color: #2F4F4F;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 150, 214, 0.2);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto 40px;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 150, 214, 0.15));
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #0096D6;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .message {
+            font-size: 1.125rem;
+            color: #2F4F4F;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .message p {
+            margin-bottom: 15px;
+        }
+
+        .message strong {
+            color: #0096D6;
+            font-weight: 600;
+        }
+
+        .wave {
+            margin-top: 40px;
+            opacity: 0.3;
+        }
+
+        .wave svg {
+            width: 100%;
+            height: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .message {
+                font-size: 1rem;
+            }
+
+            .logo {
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="Seabreeze Logo" class="logo">
+        <h1>Our Apologies</h1>
+        <div class="message">
+            <p>Ouch. We seem to be offline. #notgood</p>
+            <p>A team of highly trained professionals* have been deployed to work on it</p>
+            <br/>
+            <p>While we have your attention - please accept our thanks for being part of the whole Seabreeze.com.au experience!<br/>
+                <br/>
+                                We&apos;re close to 30 years online (started in 1997) and we&apos;re still here because of you.<br>
+                <br></p>
+            <p>We're fixing this now, and hope to be back in a matter of minutes.</p>
+            <p><hr></p>
+            <small><i>*Might be just one guy and his dog - we're not google!</i></small>
+        </div>
+        <div class="wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,60 C300,100 600,20 900,60 C1050,80 1150,40 1200,60 L1200,120 L0,120 Z" fill="#0096D6"></path>
+            </svg>
+        </div>
+    </div>
+</body>
+</html>
+
