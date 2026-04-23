@@ -29,13 +29,17 @@
 
         .container {
             text-align: center;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.95);
+            max-width: 1200px;
+            width: 100%;
+            background: #f8f9fb;
             border-radius: 20px;
-            padding: 60px 40px;
             box-shadow: 0 20px 60px rgba(0, 150, 214, 0.2);
-            backdrop-filter: blur(10px);
             animation: fadeIn 0.8s ease-in;
+            overflow: hidden;
+        }
+
+        .container-body {
+            padding: 60px 40px;
         }
 
         @keyframes fadeIn {
@@ -81,18 +85,147 @@
             font-weight: 600;
         }
 
-        .wave {
-            margin-top: 40px;
-            opacity: 0.3;
+        /* ocean scene (from temp.html) */
+        .ocean {
+            position: relative;
+            margin-top: 0;
+            height: 320px;
+            overflow: hidden;
         }
 
-        .wave svg {
+        .ocean svg {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
-            height: 60px;
+            display: block;
+        }
+
+        .buoy-label {
+            position: absolute;
+            right: 40px;
+            top: 22px;
+            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #6b7d7d;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 3px;
+        }
+
+        .buoy-label b {
+            color: #2F4F4F;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .horizon-rule {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 80px;
+            border-top: 1px dashed rgba(47, 79, 79, 0.22);
+        }
+
+        .horizon-rule::before {
+            content: "sea level — expected uptime baseline";
+            position: absolute;
+            left: 40px;
+            top: -14px;
+            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6b7d7d;
+            background: #f8f9fb;
+            padding: 0 6px;
+        }
+
+        .buoy {
+            position: absolute;
+            left: 15%;
+            top: 192px;
+            width: 54px;
+            height: 90px;
+            animation: bob 4.5s ease-in-out infinite;
+            transform-origin: 50% 85%;
+        }
+
+        .buoy svg {
+            position: static;
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0) rotate(-4deg); }
+            50% { transform: translateY(6px) rotate(4deg); }
+        }
+
+        .boat {
+            position: absolute;
+            top: 210px;
+            width: 82px;
+            height: 64px;
+            animation: drift 26s linear infinite, bob 5s ease-in-out infinite;
+            right: -100px;
+        }
+
+        .boat svg {
+            position: static;
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes drift {
+            from { right: -100px; }
+            to { right: 110%; }
+        }
+
+        .foot {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 18px 40px 24px;
+            border-top: 1px solid rgba(47, 79, 79, 0.1);
+            color: #6b7d7d;
+            letter-spacing: 0.06em;
+            background: rgba(248, 249, 251, 0.92);
+            backdrop-filter: blur(8px);
+        }
+
+        .foot .coords {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .foot .coords b {
+            color: #2F4F4F;
+            font-weight: 700;
+        }
+
+        .foot a {
+            color: #2F4F4F;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(47, 79, 79, 0.25);
+        }
+
+        .foot a:hover {
+            color: #0096D6;
+            border-bottom-color: #0096D6;
         }
 
         @media (max-width: 768px) {
-            .container {
+            .container-body {
                 padding: 40px 30px;
             }
 
@@ -107,10 +240,40 @@
             .logo {
                 max-width: 150px;
             }
+
+            .foot {
+                padding: 14px 24px 20px;
+            }
+
+            .buoy-label {
+                right: 24px;
+            }
+
+            .horizon-rule::before {
+                left: 24px;
+            }
+
+            .ocean {
+                height: 240px;
+            }
+
+            /* Wave strip is still 140px tall; band starts at 100px (not 180px like desktop).
+               Keep the same offset *into* the water as desktop (~12px / ~30px). */
+            .horizon-rule {
+                top: 60px;
+            }
+
+            .buoy {
+                top: 122px;
+            }
+
+            .boat {
+                top: 130px;
+            }
         }
 
         @media (max-width: 480px) {
-            .container {
+            .container-body {
                 padding: 30px 20px;
             }
 
@@ -122,26 +285,121 @@
 </head>
 <body>
     <div class="container">
-        <img src="logo.png" alt="Seabreeze Logo" class="logo">
-        <h1>Our Apologies</h1>
-        <div class="message">
-            <p>Ouch. We seem to be offline. #notgood</p>
-            <p>A team of highly trained professionals* have been deployed to work on it</p>
-            <br/>
-            <p>While we have your attention - please accept our thanks for being part of the whole Seabreeze.com.au experience!<br/>
+        <div class="container-body">
+            <img src="logo.png" alt="Seabreeze Logo" class="logo">
+            <h1>Our Apologies</h1>
+            <div class="message">
+                <p>Ouch. We seem to be offline. #notgood</p>
+                <p>A team of highly trained professionals* have been deployed to work on it</p>
                 <br/>
-                                We&apos;re close to 30 years online (started in 1997) and we&apos;re still here because of you.<br>
-                <br></p>
-            <p>We're fixing this now, and hope to be back in a matter of minutes.</p>
-            <p><hr></p>
-            <small><i>*Might be just one guy and his dog - we're not google!</i></small>
+                <p>While we have your attention - please accept our thanks for being part of the whole Seabreeze.com.au experience!<br/>
+                    <br/>
+                    We&apos;re close to 30 years online (started in 1997) and we&apos;re still here because of you.<br>
+                    <br></p>
+                <p>We're fixing this now, and hope to be back in a matter of minutes.</p>
+                <p><hr></p>
+                <small><i>*Might be just one guy and his dog - we're not google!</i></small>
+            </div>
+            <br /><br /><b>What actually happened:</b>
+            ::CLOUDFLARE_ERROR_500S_BOX::
         </div>
-        <div class="wave">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,60 C300,100 600,20 900,60 C1050,80 1150,40 1200,60 L1200,120 L0,120 Z" fill="#0096D6"></path>
+
+        <section class="ocean" aria-hidden="true">
+            <div class="horizon-rule"></div>
+
+            <div class="buoy">
+                <svg viewBox="0 0 54 90">
+                    <rect x="25" y="2" width="4" height="36" rx="1.5" fill="#0B1F3A"/>
+                    <path d="M29 4 L48 10 L29 18 Z" fill="#FFC700" stroke="#0B1F3A" stroke-width="1.2" stroke-linejoin="round"/>
+                    <ellipse cx="27" cy="50" rx="18" ry="15" fill="#ff6a4d" stroke="#0B1F3A" stroke-width="1.6"/>
+                    <rect x="9" y="49" width="36" height="3" fill="#0B1F3A"/>
+                    <ellipse cx="27" cy="52" rx="14" ry="3" fill="#0B1F3A" opacity="0.2"/>
+                </svg>
+            </div>
+
+            <div class="boat">
+                <svg viewBox="0 0 82 64">
+                    <path d="M40 4 L40 42 L10 42 Z" fill="#ffffff" stroke="#0B1F3A" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M44 8 L44 42 L70 42 Z" fill="#E5F0FF" stroke="#0B1F3A" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M4 44 L78 44 L68 58 L14 58 Z" fill="#0B1F3A"/>
+                    <rect x="30" y="46" width="22" height="4" fill="#FFC700"/>
+                </svg>
+            </div>
+
+            <svg viewBox="0 0 1440 240" preserveAspectRatio="none" style="height:140px">
+                <defs>
+                    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#CFE3FF"/>
+                        <stop offset="100%" stop-color="#2A8EFE"/>
+                    </linearGradient>
+                    <linearGradient id="waterDeep" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#2A8EFE"/>
+                        <stop offset="100%" stop-color="#0B3C8A"/>
+                    </linearGradient>
+                </defs>
+                <path id="w-back" fill="url(#water)" opacity="0.5"
+                    d="M0,120 C180,90 360,150 540,120 C720,90 900,150 1080,120 C1260,90 1440,150 1440,120 L1440,240 L0,240 Z"/>
+                <path id="w-mid" fill="url(#water)" opacity="0.75"
+                    d="M0,150 C160,120 320,180 540,150 C760,120 960,180 1120,150 C1280,120 1440,180 1440,150 L1440,240 L0,240 Z"/>
+                <path id="w-front" fill="url(#waterDeep)"
+                    d="M0,180 C140,150 320,210 540,180 C760,150 960,210 1140,180 C1320,150 1440,210 1440,180 L1440,240 L0,240 Z"/>
+                <g id="foam" fill="#ffffff" opacity="0.7">
+                    <circle cx="120" cy="175" r="1.5"/>
+                    <circle cx="340" cy="162" r="2"/>
+                    <circle cx="560" cy="178" r="1.2"/>
+                    <circle cx="780" cy="168" r="1.6"/>
+                    <circle cx="1000" cy="176" r="1.8"/>
+                    <circle cx="1220" cy="164" r="1.3"/>
+                    <circle cx="1380" cy="178" r="1.6"/>
+                </g>
             </svg>
-        </div>
+        </section>
     </div>
+
+    <script>
+        const waveAnim = {
+            speed: { dur: 6.5, dur2: 5.2, dur3: 4, amp: 12 },
+            t: 0
+        };
+
+        function tickWaves(ts) {
+            waveAnim.t = ts / 1000;
+            const a = waveAnim.speed.amp;
+            const wBack = document.getElementById("w-back");
+            const wMid = document.getElementById("w-mid");
+            const wFront = document.getElementById("w-front");
+            if (wBack) {
+                const p1 = wavePath(120, a * 0.7, waveAnim.t * (2 * Math.PI / waveAnim.speed.dur));
+                const p2 = wavePath(150, a, waveAnim.t * (2 * Math.PI / waveAnim.speed.dur2) + 1.1);
+                const p3 = wavePath(180, a * 1.3, waveAnim.t * (2 * Math.PI / waveAnim.speed.dur3) + 2.2);
+                wBack.setAttribute("d", p1);
+                wMid.setAttribute("d", p2);
+                wFront.setAttribute("d", p3);
+            }
+            requestAnimationFrame(tickWaves);
+        }
+
+        function wavePath(baseY, amp, phase) {
+            const pts = [];
+            const W = 1440;
+            for (let x = 0; x <= W; x += 120) {
+                const y = baseY
+                    + Math.sin((x / W) * Math.PI * 4 + phase) * amp
+                    + Math.cos((x / W) * Math.PI * 2 + phase * 0.7) * amp * 0.35;
+                pts.push([x, y]);
+            }
+            let d = `M0,${pts[0][1].toFixed(1)} `;
+            for (let i = 1; i < pts.length; i++) {
+                const [x, y] = pts[i];
+                const [px, py] = pts[i - 1];
+                const cx = (px + x) / 2;
+                d += `Q${cx},${py.toFixed(1)} ${x},${y.toFixed(1)} `;
+            }
+            d += `L${W},240 L0,240 Z`;
+            return d;
+        }
+
+        requestAnimationFrame(tickWaves);
+    </script>
 </body>
 </html>
-
